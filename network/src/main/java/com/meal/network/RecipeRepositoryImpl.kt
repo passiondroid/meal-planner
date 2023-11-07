@@ -2,9 +2,14 @@ package com.meal.network
 
 import android.media.Image
 import com.meal.network.api.MealPlannerApi
+import com.meal.network.model.IngrediantsTO
+import com.meal.network.model.Product
+import com.meal.network.model.ProductRequestTO
+import com.meal.network.model.ProductRespTO
 import com.meal.network.model.RecipeCollectionResponse
 import com.meal.network.model.RecipeDetailResponse
 import kotlinx.coroutines.delay
+import retrofit2.Response
 
 class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeRepository {
 
@@ -145,6 +150,12 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
         return recipeDetails(id, name, image)
     }
 
+    override suspend fun getRecipeDetailsFromRemote(qty: String, name: String): Response<ProductRespTO> {
+        return getRecipeDetailFromNW(qty,name)
+    }
+
+
+
     private fun recipeDetails(id: Int, name: String, image: String): RecipeDetailResponse {
         val recipes = arrayListOf(
             RecipeDetailResponse(
@@ -173,26 +184,32 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                         "2 1/2 cups" to "Lemon flavour sparkling water"
                     ),
                     products = listOf(
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Mango Medley Juice Blend",
                             subTitle = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg"
+                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            skuId = "1000383182144",
+                            cin = "7735318",
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                     Product(
                             title = "Great Value Frozen Mango Chunks",
                             subTitle = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg"
+                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                         skuId = "1000383189455",
+                         cin = "9011961"
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                    Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
                             subTitle = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b"
+                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                        skuId = "1000383192209",
+                        cin = "9020011"
                         ),
                     ),
                     totalItems = "3",
@@ -241,26 +258,32 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                         "1/4 cup" to "Slivered almonds",
                     ),
                     products = listOf(
-                        RecipeDetailResponse.Ingredients.Product(
+                        Product(
                             title = "Mango Medley Juice Blend",
                             subTitle = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg"
+                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            skuId = "",
+                            cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Great Value Frozen Mango Chunks",
                             subTitle = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg"
+                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                       Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
                             subTitle = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b"
+                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                           skuId = "",
+                           cin = ""
                         ),
                     ),
                     totalItems = "3",
@@ -307,26 +330,32 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                         "3 cups" to "Vegetable broth",
                     ),
                     products = listOf(
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Mango Medley Juice Blend",
                             subTitle = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg"
+                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Great Value Frozen Mango Chunks",
                             subTitle = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg"
+                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
                             subTitle = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b"
+                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                          skuId = "",
+                          cin = ""
                         ),
                     ),
                     totalItems = "3",
@@ -378,26 +407,32 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                         "1 tbsp" to "Cheddar cheese",
                     ),
                     products = listOf(
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Mango Medley Juice Blend",
                             subTitle = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg"
+                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Great Value Frozen Mango Chunks",
                             subTitle = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg"
+                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
                             subTitle = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b"
+                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                          skuId = "",
+                          cin = ""
                         ),
                     ),
                     totalItems = "3",
@@ -453,26 +488,32 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                         "1/2 tbsp" to "Sesame seeds",
                     ),
                     products = listOf(
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Mango Medley Juice Blend",
                             subTitle = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg"
+                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Great Value Frozen Mango Chunks",
                             subTitle = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg"
+                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
                             subTitle = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b"
+                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                          skuId = "",
+                          cin = ""
                         ),
                     ),
                     totalItems = "3",
@@ -526,26 +567,32 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                         "2 sheets" to "Fat reduced puff pastry - thawed",
                     ),
                     products = listOf(
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Mango Medley Juice Blend",
                             subTitle = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg"
+                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Great Value Frozen Mango Chunks",
                             subTitle = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg"
+                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                          skuId = "",
+                          cin = ""
                         ),
-                        RecipeDetailResponse.Ingredients.Product(
+                      Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
                             subTitle = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b"
+                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                          skuId = "",
+                          cin = ""
                         ),
                     ),
                     totalItems = "3",
@@ -577,5 +624,11 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
         } else {
             recipes[id-7]
         }
+    }
+
+    private suspend fun getRecipeDetailFromNW(qty:String, name:String) : Response<ProductRespTO> {
+        val ingrediantsTO = IngrediantsTO(qty,name)
+        val productRequestTO = ProductRequestTO(arrayListOf(ingrediantsTO))
+        return mealPlannerApi.getRecipeDetails(productRequestTO)
     }
 }

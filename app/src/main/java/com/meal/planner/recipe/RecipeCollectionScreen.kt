@@ -1,3 +1,4 @@
+
 package com.meal.planner.recipe
 
 import android.content.Intent
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.meal.design.ui.FilterComponent
 import com.meal.design.ui.StaggeredList
@@ -58,6 +60,7 @@ fun RecipeCollectionContent(response: RecipeCollectionResponse) {
             intent.putExtra("id", it.id)
             intent.putExtra("name", it.name)
             intent.putExtra("image", it.image)
+            intent.putExtra("qty", "3")
             context.startActivity(intent)
         }
     }

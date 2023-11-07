@@ -65,6 +65,7 @@ import com.meal.design.R
 import com.meal.design.ui.Utils.HIGHLIGHT_COLOR
 import com.meal.design.ui.theme.montserratBold
 import com.meal.design.ui.theme.montserratRegular
+import com.meal.network.model.Product
 import com.meal.network.model.RecipeDetailResponse
 import kotlinx.coroutines.launch
 
@@ -275,7 +276,7 @@ fun IngredientComposable(response: RecipeDetailResponse) {
 }
 
 @Composable
-fun RecipeProduct(product: RecipeDetailResponse.Ingredients.Product) {
+fun RecipeProduct(product: Product) {
     Card(shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)

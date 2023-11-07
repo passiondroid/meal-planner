@@ -33,20 +33,7 @@ data class RecipeDetailResponse(
         val totalItems: String,
         @SerializedName("estimated_total")
         val estimatedTotal: String,
-    ) {
-        data class Product(
-            @SerializedName("title")
-            val title: String,
-            @SerializedName("sub_title")
-            val subTitle: String,
-            @SerializedName("price")
-            val price: String,
-            @SerializedName("quantity")
-            val quantity: String,
-            @SerializedName("image")
-            val image: String,
-        )
-    }
+    )
 
     data class Instructions(
         @SerializedName("title")
@@ -59,3 +46,34 @@ data class RecipeDetailResponse(
         val steps: List<String>,
     )
 }
+data class Product(
+    @SerializedName("title")
+    val title: String,
+    @SerializedName("sub_title")
+    val subTitle: String,
+    @SerializedName("price")
+    val price: String,
+    @SerializedName("quantity")
+    val quantity: String,
+    @SerializedName("image")
+    val image: String,
+    @SerializedName("skuId")
+    val skuId: String,
+    @SerializedName("cin")
+    val cin: String,
+)
+
+data class ProductRespTO(
+    @SerializedName("product_code")
+    val productCode: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("image_url")
+    val imageUrl: String,
+    @SerializedName("price")
+    val price: String,
+    @SerializedName("quantity")
+    val quantity: String,
+    @SerializedName("description")
+    val description: String,
+)
