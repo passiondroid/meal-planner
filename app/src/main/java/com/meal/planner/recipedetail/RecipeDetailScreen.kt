@@ -161,9 +161,11 @@ fun RecipeDetailContent(response: RecipeDetailResponse, context: FragmentActivit
                     action = "com.asda.android.ADD_TO_CART"
                     putExtra(Intent.EXTRA_TEXT, skuCinIds)
                     type = "text/plain"
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
+
                 context.startActivity(intent)
-                context.finish()
             })
         }
     }

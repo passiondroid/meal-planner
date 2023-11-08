@@ -190,8 +190,8 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                             price = "₹ 200",
                             quantity = "1",
                             image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "1000383182144",
-                            cin = "7735318",
+                            skuId = "910000558862",
+                            cin = "3875253",
                         ),
                      Product(
                             title = "Great Value Frozen Mango Chunks",
@@ -199,8 +199,8 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                             price = "₹ 300",
                             quantity = "1",
                             image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                         skuId = "1000383189455",
-                         cin = "9011961"
+                         skuId = "910002339446",
+                         cin = "5384295"
                         ),
                     Product(
                             title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
@@ -208,8 +208,8 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                             price = "₹ 250",
                             quantity = "1",
                             image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                        skuId = "1000383192209",
-                        cin = "9020011"
+                        skuId = "910001488114",
+                        cin = "4808682"
                         ),
                     ),
                     totalItems = "3",
