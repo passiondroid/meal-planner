@@ -1,12 +1,7 @@
 package com.meal.design.ui
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.with
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -65,19 +60,26 @@ import com.meal.design.R
 import com.meal.design.ui.Utils.HIGHLIGHT_COLOR
 import com.meal.design.ui.theme.montserratBold
 import com.meal.design.ui.theme.montserratRegular
+import com.meal.network.model.FetchProducts
 import com.meal.network.model.Product
+import com.meal.network.model.ProductRespTO
 import com.meal.network.model.RecipeDetailResponse
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 @Composable
-fun MPText(modifier: Modifier = Modifier, title: String,
-           style: TextStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.Normal)) {
+fun MPText(
+    modifier: Modifier = Modifier, title: String,
+    style: TextStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.Normal)
+) {
     Text(modifier = modifier, text = title, fontFamily = montserratRegular, style = style)
 }
 
 @Composable
-fun AnnotatedMPText(modifier: Modifier = Modifier, title: String, boldTitle: String,
-                    style: TextStyle = TextStyle(color = Color.Black)) {
+fun AnnotatedMPText(
+    modifier: Modifier = Modifier, title: String, boldTitle: String,
+    style: TextStyle = TextStyle(color = Color.Black)
+) {
     val annotatedText = buildAnnotatedString {
         append(title)
         withStyle(
@@ -93,12 +95,15 @@ fun AnnotatedMPText(modifier: Modifier = Modifier, title: String, boldTitle: Str
 }
 
 @Composable
-fun MPTextBold(modifier: Modifier = Modifier, title: String,
-               style: TextStyle = TextStyle(color = Color.Black),
-               fontSize: TextUnit = 20.sp, maxlines: Int = 10
+fun MPTextBold(
+    modifier: Modifier = Modifier, title: String,
+    style: TextStyle = TextStyle(color = Color.Black),
+    fontSize: TextUnit = 20.sp, maxlines: Int = 10
 ) {
-    Text(modifier = modifier, text = title, fontFamily = montserratBold,
-        fontSize = fontSize , style = style, maxLines = maxlines, overflow = TextOverflow.Ellipsis)
+    Text(
+        modifier = modifier, text = title, fontFamily = montserratBold,
+        fontSize = fontSize, style = style, maxLines = maxlines, overflow = TextOverflow.Ellipsis
+    )
 }
 
 @Composable
@@ -119,7 +124,7 @@ fun MPTab(modifier: Modifier, text: String, isSelected: Boolean, onClick: () -> 
     val color = if (isSelected) HIGHLIGHT_COLOR else Color.White
     val textColor = if (isSelected) Color.White else HIGHLIGHT_COLOR
     val borderColor = if (isSelected) Color.Transparent else HIGHLIGHT_COLOR
-    Box (
+    Box(
         modifier = modifier
             .height(40.dp)
             .clickable {
@@ -129,16 +134,18 @@ fun MPTab(modifier: Modifier, text: String, isSelected: Boolean, onClick: () -> 
             .background(color = color)
             .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(24.dp))
     ) {
-        MPText(title = text, style = TextStyle(color = textColor),
+        MPText(
+            title = text, style = TextStyle(color = textColor),
             modifier = Modifier
                 .padding(4.dp)
-                .align(Alignment.Center))
+                .align(Alignment.Center)
+        )
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
 @Composable
-fun MPPager(response: RecipeDetailResponse) {
+fun MPPager(response: RecipeDetailResponse, productListResponse: Response<FetchProducts>) {
     var isTab1Selected by remember { mutableStateOf(true) }
     var isTab2Selected by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -180,11 +187,16 @@ fun MPPager(response: RecipeDetailResponse) {
     ) {
         AnimatedContent(
             targetState = pagerState,
-            label = "") {
+            label = ""
+        ) {
             when (it.currentPage) {
                 0 -> {
-                    IngredientComposable(response)
+                    IngredientComposable(
+                        response,
+                        productListResponse.body()?.records?.productRespToList!!
+                    )
                 }
+
                 else -> {
                     InstructionsComposable(response)
                 }
@@ -231,7 +243,7 @@ fun InstructionsComposable(response: RecipeDetailResponse) {
 }
 
 @Composable
-fun IngredientComposable(response: RecipeDetailResponse) {
+fun IngredientComposable(response: RecipeDetailResponse, productList: List<ProductRespTO>) {
     Column {
         MPTextBold(title = "Quantities")
         Spacer(modifier = Modifier.height(16.dp))
@@ -245,8 +257,8 @@ fun IngredientComposable(response: RecipeDetailResponse) {
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        response.ingredients.products.forEach {
-            RecipeProduct(it)
+        productList.forEach {
+            SelectedRecipeProducts(it)
             Spacer(modifier = Modifier.height(8.dp))
         }
         Spacer(modifier = Modifier.height(32.dp))
@@ -277,14 +289,17 @@ fun IngredientComposable(response: RecipeDetailResponse) {
 
 @Composable
 fun RecipeProduct(product: Product) {
-    Card(shape = MaterialTheme.shapes.medium,
+    Card(
+        shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .height(70.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .height(70.dp)
+        ) {
             AsyncImage(
                 model = Utils.getImageRequest(product.image, LocalContext.current),
                 contentScale = ContentScale.Crop,
@@ -293,9 +308,11 @@ fun RecipeProduct(product: Product) {
                     .fillMaxHeight()
                     .weight(0.25f)
             )
-            Column(modifier = Modifier
-                .weight(0.75f)
-                .fillMaxHeight()) {
+            Column(
+                modifier = Modifier
+                    .weight(0.75f)
+                    .fillMaxHeight()
+            ) {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     MPTextBold(
                         title = product.title,
@@ -310,14 +327,72 @@ fun RecipeProduct(product: Product) {
                         fontSize = 16.sp
                     )
                 }
-                Row(horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom
+                ) {
                     MPText(
                         title = product.subTitle, modifier = Modifier
                             .weight(1f)
                             .padding(start = 16.dp, end = 16.dp)
                     )
-                    MPText(title = "Quantity ${product.quantity}",)
+                    MPText(title = "Quantity ${product.quantity}")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SelectedRecipeProducts(product: ProductRespTO) {
+    Card(
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .height(70.dp)
+        ) {
+            AsyncImage(
+                model = Utils.getImageRequest(product.imageUrl, LocalContext.current),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.25f)
+            )
+            Column(
+                modifier = Modifier
+                    .weight(0.75f)
+                    .fillMaxHeight()
+            ) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                    MPTextBold(
+                        title = product.name,
+                        maxlines = 2,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp, end = 16.dp),
+                        fontSize = 16.sp
+                    )
+                    MPTextBold(
+                        title = product.price,
+                        fontSize = 16.sp
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom
+                ) {
+                    MPText(
+                        title = product.description, modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp, end = 16.dp)
+                    )
+                    MPText(title = "Quantity ${product.quantity}")
                 }
             }
         }
@@ -327,12 +402,14 @@ fun RecipeProduct(product: Product) {
 @Composable
 fun WishlistIcon() {
     val resource = painterResource(id = R.drawable.save)
-    Box(modifier = Modifier
-        .width(28.dp)
-        .height(28.dp)
-        .border(width = 1.dp, color = HIGHLIGHT_COLOR, shape = CircleShape)
+    Box(
+        modifier = Modifier
+            .width(28.dp)
+            .height(28.dp)
+            .border(width = 1.dp, color = HIGHLIGHT_COLOR, shape = CircleShape)
     ) {
-        Icon(painter = resource,
+        Icon(
+            painter = resource,
             contentDescription = "",
             tint = Color.Black,
             modifier = Modifier.padding(8.dp)
@@ -363,7 +440,7 @@ fun HorizontalFilterList(filters: List<String>) {
                     )
                     .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
                 style = TextStyle(
-                    color =  HIGHLIGHT_COLOR,
+                    color = HIGHLIGHT_COLOR,
                     fontSize = 16.sp
                 ),
             )
@@ -380,16 +457,18 @@ fun MPCost(cost: Int) {
             bold = "₹"
             normal = "₹₹"
         }
+
         2 -> {
             bold = "₹₹"
             normal = "₹"
         }
+
         3 -> {
             bold = "₹₹₹"
             normal = ""
         }
     }
-    Row( verticalAlignment = Alignment.Top) {
+    Row(verticalAlignment = Alignment.Top) {
         MPTextBold(title = bold, fontSize = 18.sp)
         MPText(title = normal, style = TextStyle(color = Color.Black, fontSize = 18.sp))
     }

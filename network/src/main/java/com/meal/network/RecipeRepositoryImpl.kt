@@ -1,7 +1,7 @@
 package com.meal.network
 
-import android.media.Image
 import com.meal.network.api.MealPlannerApi
+import com.meal.network.model.FetchProducts
 import com.meal.network.model.IngrediantsTO
 import com.meal.network.model.Product
 import com.meal.network.model.ProductRequestTO
@@ -150,7 +150,7 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
         return recipeDetails(id, name, image)
     }
 
-    override suspend fun getRecipeDetailsFromRemote(qty: String, name: String): Response<ProductRespTO> {
+    override suspend fun getRecipeDetailsFromRemote(qty: String, name: String): Response<FetchProducts> {
         return getRecipeDetailFromNW(qty,name)
     }
 
@@ -626,9 +626,10 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
         }
     }
 
-    private suspend fun getRecipeDetailFromNW(qty:String, name:String) : Response<ProductRespTO> {
+    private suspend fun getRecipeDetailFromNW(qty:String, name:String) : Response<FetchProducts> {
         val ingrediantsTO = IngrediantsTO(qty,name)
         val productRequestTO = ProductRequestTO(arrayListOf(ingrediantsTO))
-        return mealPlannerApi.getRecipeDetails(productRequestTO)
+        return mealPlannerApi.getRecipeDetailsProducts()
+        //return mealPlannerApi.getRecipeDetails(productRequestTO)
     }
 }

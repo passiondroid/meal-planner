@@ -1,10 +1,7 @@
 package com.meal.planner.recipedetail
 
 import android.app.Activity
-import android.content.ComponentName
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -48,13 +45,20 @@ import com.meal.design.ui.MPText
 import com.meal.design.ui.MPTextBold
 import com.meal.design.ui.Utils
 import com.meal.design.ui.WishlistIcon
+import com.meal.network.model.FetchProducts
+import com.meal.network.model.ProductRespTO
 import com.meal.network.model.RecipeDetailResponse
 import com.meal.planner.viewmodel.RecipeDetailPageState
 import com.meal.planner.viewmodel.RecipeDetailViewModel
+import com.meal.planner.viewmodel.RecipeDetailsProductPageState
+import retrofit2.Response
 
 @Composable
 fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivity) {
     val recipeDetailPageState = viewModel.recipeDetailLiveData.observeAsState()
+    val recipeDetailsProductPageState = viewModel.recipeDetailProductLiveData.observeAsState()
+
+    var response : RecipeDetailResponse? = null
     if ((recipeDetailPageState.value is RecipeDetailPageState.Error).not() && recipeDetailPageState.value != null) {
         when (recipeDetailPageState.value) {
             is RecipeDetailPageState.Loading -> {
@@ -62,9 +66,29 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivi
             }
 
             is RecipeDetailPageState.Success -> {
-                val response =
+                response =
                     (recipeDetailPageState.value as RecipeDetailPageState.Success).response
-                RecipeDetailContent(response, context)
+
+            }
+
+            else -> {
+                Loading()
+            }
+        }
+    } else {
+        //TODO:Show error screen
+    }
+
+    if ((recipeDetailsProductPageState.value is RecipeDetailsProductPageState.Error).not() && recipeDetailsProductPageState.value != null) {
+        when (recipeDetailsProductPageState.value) {
+            is RecipeDetailsProductPageState.Loading -> {
+                Loading()
+            }
+
+            is RecipeDetailsProductPageState.Success -> {
+               val productListResponse =
+                    (recipeDetailsProductPageState.value as RecipeDetailsProductPageState.Success).response
+                RecipeDetailContent(response!!, context,productListResponse)
             }
 
             else -> {
@@ -77,7 +101,11 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivi
 }
 
 @Composable
-fun RecipeDetailContent(response: RecipeDetailResponse, context: FragmentActivity) {
+fun RecipeDetailContent(
+    response: RecipeDetailResponse,
+    context: FragmentActivity,
+    productListResponse: Response<FetchProducts>
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -138,7 +166,7 @@ fun RecipeDetailContent(response: RecipeDetailResponse, context: FragmentActivit
                         }
                     }
                 }
-                MPPager(response)
+                MPPager(response,productListResponse)
             }
         }
         Row(

@@ -1,5 +1,6 @@
 package com.meal.network.api
 
+import com.meal.network.model.FetchProducts
 import com.meal.network.model.HomePageResponse
 import com.meal.network.model.Product
 import com.meal.network.model.ProductRequestTO
@@ -16,6 +17,9 @@ interface MealPlannerApi {
     suspend fun getHomePage(): HomePageResponse
 
     @POST("MealPlanner")
-    suspend fun getRecipeDetails(@Body productRequestTO: ProductRequestTO) : Response<ProductRespTO>
+    suspend fun getRecipeDetails(@Body productRequestTO: ProductRequestTO) : List<ProductRespTO>
+
+    @GET("654b5e1f12a5d37659967d5a")
+    suspend fun getRecipeDetailsProducts() : Response<FetchProducts>
 
 }

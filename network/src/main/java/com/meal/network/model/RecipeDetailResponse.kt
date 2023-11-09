@@ -63,6 +63,28 @@ data class Product(
     val cin: String,
 )
 
+data class FetchProducts(
+    @SerializedName("id")
+    val id:String,
+    @SerializedName("record")
+    val records: Records,
+    @SerializedName("metadata")
+    val metadata: Metadata
+
+)
+
+data class Metadata( @SerializedName("name")
+                     val name: String,
+                     @SerializedName("readCountRemaining")
+                     val readCountRemaining: Int,
+                     @SerializedName("timeToExpire")
+                    val timeToExpire:Double,
+                     @SerializedName("createdAt")
+                     val createdAt:String
+    )
+
+data class Records(  @SerializedName("products")
+                     val productRespToList:List<ProductRespTO>)
 data class ProductRespTO(
     @SerializedName("product_code")
     val productCode: String,
@@ -75,5 +97,5 @@ data class ProductRespTO(
     @SerializedName("quantity")
     val quantity: String,
     @SerializedName("description")
-    val description: String,
+    val description: String
 )
