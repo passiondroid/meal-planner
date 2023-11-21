@@ -20,7 +20,7 @@ class RecipeDetailActivity: FragmentActivity() {
             val qty = intent.getStringExtra("qty")
             MealPlannerTheme {
                 viewModel.getRecipeDetails(id, name.orEmpty(), image.orEmpty())
-                viewModel.getRecipeProducts(qty!!,name!!)
+//                viewModel.getRecipeProducts(qty!!,name!!)
                 RecipeDetailScreen(viewModel = viewModel,this)
             }
         }

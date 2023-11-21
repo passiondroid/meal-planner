@@ -56,7 +56,7 @@ import retrofit2.Response
 @Composable
 fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivity) {
     val recipeDetailPageState = viewModel.recipeDetailLiveData.observeAsState()
-    val recipeDetailsProductPageState = viewModel.recipeDetailProductLiveData.observeAsState()
+//    val recipeDetailsProductPageState = viewModel.recipeDetailProductLiveData.observeAsState()
 
     var response : RecipeDetailResponse? = null
     if ((recipeDetailPageState.value is RecipeDetailPageState.Error).not() && recipeDetailPageState.value != null) {
@@ -79,25 +79,25 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivi
         //TODO:Show error screen
     }
 
-    if ((recipeDetailsProductPageState.value is RecipeDetailsProductPageState.Error).not() && recipeDetailsProductPageState.value != null) {
-        when (recipeDetailsProductPageState.value) {
-            is RecipeDetailsProductPageState.Loading -> {
-                Loading()
-            }
-
-            is RecipeDetailsProductPageState.Success -> {
-               val productListResponse =
-                    (recipeDetailsProductPageState.value as RecipeDetailsProductPageState.Success).response
-                RecipeDetailContent(response!!, context,productListResponse)
-            }
-
-            else -> {
-                Loading()
-            }
-        }
-    } else {
-        //TODO:Show error screen
-    }
+//    if ((recipeDetailsProductPageState.value is RecipeDetailsProductPageState.Error).not() && recipeDetailsProductPageState.value != null) {
+//        when (recipeDetailsProductPageState.value) {
+//            is RecipeDetailsProductPageState.Loading -> {
+//                Loading()
+//            }
+//
+//            is RecipeDetailsProductPageState.Success -> {
+//               val productListResponse =
+//                    (recipeDetailsProductPageState.value as RecipeDetailsProductPageState.Success).response
+//                RecipeDetailContent(response!!, context,productListResponse)
+//            }
+//
+//            else -> {
+//                Loading()
+//            }
+//        }
+//    } else {
+//        //TODO:Show error screen
+//    }
 }
 
 @Composable

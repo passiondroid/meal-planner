@@ -10,6 +10,4 @@ interface RecipeRepository {
     suspend fun getRecipeCollections(): RecipeCollectionResponse
     suspend fun getRecipeDetails(id: Int, name: String, image: String): RecipeDetailResponse
 
-    suspend fun getRecipeDetailsFromRemote(qty: String, name: String): Response<FetchProducts>
-
 }

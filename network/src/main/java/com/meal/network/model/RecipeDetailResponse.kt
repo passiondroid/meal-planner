@@ -28,7 +28,7 @@ data class RecipeDetailResponse(
         @SerializedName("quantities")
         val quantities: Map<String, String>,
         @SerializedName("product")
-        val products: List<Product>,
+        var products: List<Product> = emptyList(),
         @SerializedName("total_items")
         val totalItems: String,
         @SerializedName("estimated_total")
@@ -97,5 +97,22 @@ data class ProductRespTO(
     @SerializedName("quantity")
     val quantity: String,
     @SerializedName("description")
-    val description: String
-)
+    val description: String,
+    @SerializedName("cin")
+    val cin: String
+) {
+
+    fun toProduct(): Product {
+        return Product(
+            title = this.name,
+            subTitle = this.description,
+            price = this.price,
+            quantity = this.quantity,
+            image = this.imageUrl,
+            cin = this.cin,
+            skuId = this.productCode
+        )
+    }
+}
+
+

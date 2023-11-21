@@ -28,23 +28,23 @@ class RecipeDetailViewModel(private val repository: RecipeRepository): ViewModel
 
     }
 
-    fun getRecipeProducts(qty: String, name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = repository.getRecipeDetailsFromRemote(qty,name)
-                _recipeDetailProductLiveData.postValue(RecipeDetailsProductPageState.Success(response))
-                if(response.isSuccessful){
-
-                }else{
-                    Log.d("TAG", "getRecipeProducts: "+response.errorBody())
-                }
-                Log.d("TAG", "getRecipeProducts: response from server is = ${response.body()?.records?.productRespToList}")
-            } catch (e: Exception) {
-                Log.d("TAG", "getRecipeProducts: exception from server is = $e")
-                e.printStackTrace()
-            }
-        }
-
-    }
+//    fun getRecipeProducts(qty: String, name: String) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                val response = repository.getRecipeDetailsFromRemote(qty,name)
+//                _recipeDetailProductLiveData.postValue(RecipeDetailsProductPageState.Success(response))
+//                if(response.isSuccessful){
+//
+//                }else{
+//                    Log.d("TAG", "getRecipeProducts: "+response.errorBody())
+//                }
+//                Log.d("TAG", "getRecipeProducts: response from server is = ${response.body()?.records?.productRespToList}")
+//            } catch (e: Exception) {
+//                Log.d("TAG", "getRecipeProducts: exception from server is = $e")
+//                e.printStackTrace()
+//            }
+//        }
+//
+//    }
 
 }
