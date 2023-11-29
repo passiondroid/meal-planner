@@ -66,8 +66,11 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivi
             }
 
             is RecipeDetailPageState.Success -> {
-                response =
+//                response =
+//                    (recipeDetailPageState.value as RecipeDetailPageState.Success).response
+                val productListResponse =
                     (recipeDetailPageState.value as RecipeDetailPageState.Success).response
+                RecipeDetailContent(productListResponse, context)
 
             }
 
@@ -104,7 +107,6 @@ fun RecipeDetailScreen(viewModel: RecipeDetailViewModel, context: FragmentActivi
 fun RecipeDetailContent(
     response: RecipeDetailResponse,
     context: FragmentActivity,
-    productListResponse: Response<FetchProducts>
 ) {
     Box(
         modifier = Modifier
@@ -166,7 +168,7 @@ fun RecipeDetailContent(
                         }
                     }
                 }
-                MPPager(response,productListResponse)
+                MPPager(response)
             }
         }
         Row(
@@ -181,19 +183,20 @@ fun RecipeDetailContent(
             Spacer(modifier = Modifier.weight(0.1f))
             MPButton("Add to       Cart", modifier = Modifier.weight(0.45f), onClick = {
                 var skuCinIds = ""
-                for(productList in response.ingredients.products){
-                    skuCinIds += productList.skuId.plus(":").plus(productList.cin).plus(",")
+                response.ingredients.products?.let {
+                    for (productList in it) {
+                        skuCinIds += productList.productCode.plus(":").plus(productList.cin).plus(",")
+                    }
+                    skuCinIds = skuCinIds.dropLast(1);
+                    val intent = Intent().apply {
+                        action = "com.asda.android.ADD_TO_CART"
+                        putExtra(Intent.EXTRA_TEXT, skuCinIds)
+                        type = "text/plain"
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    context.startActivity(intent)
                 }
-                skuCinIds = skuCinIds.dropLast(1);
-                val intent = Intent().apply {
-                    action = "com.asda.android.ADD_TO_CART"
-                    putExtra(Intent.EXTRA_TEXT, skuCinIds)
-                    type = "text/plain"
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                }
-
-                context.startActivity(intent)
             })
         }
     }

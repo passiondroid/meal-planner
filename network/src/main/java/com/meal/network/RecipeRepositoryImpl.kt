@@ -2,8 +2,8 @@ package com.meal.network
 
 import com.meal.network.api.MealPlannerApi
 import com.meal.network.model.IngrediantsTO
-import com.meal.network.model.Product
 import com.meal.network.model.ProductRequestTO
+import com.meal.network.model.Products
 import com.meal.network.model.RecipeCollectionResponse
 import com.meal.network.model.RecipeDetailResponse
 import kotlinx.coroutines.delay
@@ -156,8 +156,13 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
         return recipe
     }
 
-    private suspend fun getRecipeDetailFromNW(productRequestTO: ProductRequestTO) : List<Product> {
-        val productsList = mealPlannerApi.getRecipeDetails(productRequestTO)
-        return productsList.map { it.toProduct() }.toList()
+    private suspend fun getRecipeDetailFromNW(productRequestTO: ProductRequestTO) : List<Products.Product>? {
+        try {
+            val productList = mealPlannerApi.getRecipeDetails()
+            return productList.products
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return emptyList()
     }
 }

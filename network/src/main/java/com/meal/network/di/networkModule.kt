@@ -13,6 +13,7 @@ import com.meal.network.api.MealPlannerApi
 import com.meal.network.interceptor.RequestTokenInterceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
+import retrofit2.Retrofit
 
 val networkModule = module {
 

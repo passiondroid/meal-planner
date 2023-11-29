@@ -28,7 +28,7 @@ data class RecipeDetailResponse(
         @SerializedName("quantities")
         val quantities: Map<String, String>,
         @SerializedName("product")
-        var products: List<Product> = emptyList(),
+        var products: List<Products.Product>? = emptyList(),
         @SerializedName("total_items")
         val totalItems: String,
         @SerializedName("estimated_total")
@@ -46,22 +46,22 @@ data class RecipeDetailResponse(
         val steps: List<String>,
     )
 }
-data class Product(
-    @SerializedName("title")
-    val title: String,
-    @SerializedName("sub_title")
-    val subTitle: String,
-    @SerializedName("price")
-    val price: String,
-    @SerializedName("quantity")
-    val quantity: String,
-    @SerializedName("image")
-    val image: String,
-    @SerializedName("skuId")
-    val skuId: String,
-    @SerializedName("cin")
-    val cin: String,
-)
+//data class Product(
+//    @SerializedName("title")
+//    val title: String,
+//    @SerializedName("sub_title")
+//    val subTitle: String,
+//    @SerializedName("price")
+//    val price: String,
+//    @SerializedName("quantity")
+//    val quantity: String,
+//    @SerializedName("image")
+//    val image: String,
+//    @SerializedName("skuId")
+//    val skuId: String,
+//    @SerializedName("cin")
+//    val cin: String,
+//)
 
 data class FetchProducts(
     @SerializedName("id")
@@ -102,17 +102,17 @@ data class ProductRespTO(
     val cin: String
 ) {
 
-    fun toProduct(): Product {
-        return Product(
-            title = this.name,
-            subTitle = this.description,
-            price = this.price,
-            quantity = this.quantity,
-            image = this.imageUrl,
-            cin = this.cin,
-            skuId = this.productCode
-        )
-    }
+//    fun toProduct(): Product {
+//        return Product(
+//            title = this.name,
+//            subTitle = this.description,
+//            price = this.price,
+//            quantity = this.quantity,
+//            image = this.imageUrl,
+//            cin = this.cin,
+//            skuId = this.productCode
+//        )
+//    }
 }
 
 

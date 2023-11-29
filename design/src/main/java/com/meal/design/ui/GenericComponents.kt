@@ -61,8 +61,8 @@ import com.meal.design.ui.Utils.HIGHLIGHT_COLOR
 import com.meal.design.ui.theme.montserratBold
 import com.meal.design.ui.theme.montserratRegular
 import com.meal.network.model.FetchProducts
-import com.meal.network.model.Product
 import com.meal.network.model.ProductRespTO
+import com.meal.network.model.Products
 import com.meal.network.model.RecipeDetailResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -145,7 +145,7 @@ fun MPTab(modifier: Modifier, text: String, isSelected: Boolean, onClick: () -> 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
 @Composable
-fun MPPager(response: RecipeDetailResponse, productListResponse: Response<FetchProducts>) {
+fun MPPager(response: RecipeDetailResponse) {
     var isTab1Selected by remember { mutableStateOf(true) }
     var isTab2Selected by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -191,12 +191,8 @@ fun MPPager(response: RecipeDetailResponse, productListResponse: Response<FetchP
         ) {
             when (it.currentPage) {
                 0 -> {
-                    IngredientComposable(
-                        response,
-                        productListResponse.body()?.records?.productRespToList!!
-                    )
+                    IngredientComposable(response,)
                 }
-
                 else -> {
                     InstructionsComposable(response)
                 }
@@ -243,7 +239,7 @@ fun InstructionsComposable(response: RecipeDetailResponse) {
 }
 
 @Composable
-fun IngredientComposable(response: RecipeDetailResponse, productList: List<ProductRespTO>) {
+fun IngredientComposable(response: RecipeDetailResponse) {
     Column {
         MPTextBold(title = "Quantities")
         Spacer(modifier = Modifier.height(16.dp))
@@ -257,7 +253,7 @@ fun IngredientComposable(response: RecipeDetailResponse, productList: List<Produ
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        productList.forEach {
+        response.ingredients.products?.forEach {
             SelectedRecipeProducts(it)
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -268,7 +264,7 @@ fun IngredientComposable(response: RecipeDetailResponse, productList: List<Produ
                 style = TextStyle(color = Color.Black, fontSize = 17.sp)
             )
             MPText(
-                title = response.ingredients.totalItems,
+                title = response.ingredients.products?.size.toString(),
                 style = TextStyle(color = Color.Black, fontSize = 17.sp)
             )
         }
@@ -288,63 +284,7 @@ fun IngredientComposable(response: RecipeDetailResponse, productList: List<Produ
 }
 
 @Composable
-fun RecipeProduct(product: Product) {
-    Card(
-        shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .height(70.dp)
-        ) {
-            AsyncImage(
-                model = Utils.getImageRequest(product.image, LocalContext.current),
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(0.25f)
-            )
-            Column(
-                modifier = Modifier
-                    .weight(0.75f)
-                    .fillMaxHeight()
-            ) {
-                Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    MPTextBold(
-                        title = product.title,
-                        maxlines = 2,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 16.dp, end = 16.dp),
-                        fontSize = 16.sp
-                    )
-                    MPTextBold(
-                        title = product.price,
-                        fontSize = 16.sp
-                    )
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom
-                ) {
-                    MPText(
-                        title = product.subTitle, modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 16.dp, end = 16.dp)
-                    )
-                    MPText(title = "Quantity ${product.quantity}")
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun SelectedRecipeProducts(product: ProductRespTO) {
+fun RecipeProduct(product: Products.Product) {
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(Color.White),
@@ -371,7 +311,7 @@ fun SelectedRecipeProducts(product: ProductRespTO) {
             ) {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     MPTextBold(
-                        title = product.name,
+                        title = product.name.orEmpty(),
                         maxlines = 2,
                         modifier = Modifier
                             .weight(1f)
@@ -379,7 +319,7 @@ fun SelectedRecipeProducts(product: ProductRespTO) {
                         fontSize = 16.sp
                     )
                     MPTextBold(
-                        title = product.price,
+                        title = product.price.orEmpty(),
                         fontSize = 16.sp
                     )
                 }
@@ -388,7 +328,63 @@ fun SelectedRecipeProducts(product: ProductRespTO) {
                     modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom
                 ) {
                     MPText(
-                        title = product.description, modifier = Modifier
+                        title = product.description.orEmpty(), modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp, end = 16.dp)
+                    )
+                    MPText(title = "Quantity ${product.quantity}")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SelectedRecipeProducts(product: Products.Product) {
+    Card(
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .height(70.dp)
+        ) {
+            AsyncImage(
+                model = Utils.getImageRequest(product.imageUrl, LocalContext.current),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.25f)
+            )
+            Column(
+                modifier = Modifier
+                    .weight(0.75f)
+                    .fillMaxHeight()
+            ) {
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                    MPTextBold(
+                        title = product.name.orEmpty(),
+                        maxlines = 2,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp, end = 16.dp),
+                        fontSize = 16.sp
+                    )
+                    MPTextBold(
+                        title = product.price.orEmpty(),
+                        fontSize = 16.sp
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom
+                ) {
+                    MPText(
+                        title = product.description.orEmpty(), modifier = Modifier
                             .weight(1f)
                             .padding(start = 16.dp, end = 16.dp)
                     )

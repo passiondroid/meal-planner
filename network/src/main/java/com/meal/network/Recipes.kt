@@ -1,6 +1,6 @@
 package com.meal.network
 
-import com.meal.network.model.Product
+import com.meal.network.model.Products
 import com.meal.network.model.RecipeDetailResponse
 
 object Recipes {
@@ -33,31 +33,31 @@ object Recipes {
                         "2 1/2 cups" to "Lemon flavour sparkling water"
                     ),
                     products = listOf(
-                        Product(
-                            title = "Mango Medley Juice Blend",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Mango Medley Juice Blend",
+                            description = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "910000558862",
+                            imageUrl = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            productCode = "910000558862",
                             cin = "3875253",
                         ),
-                        Product(
-                            title = "Great Value Frozen Mango Chunks",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Great Value Frozen Mango Chunks",
+                            description = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                            skuId = "910002339446",
+                            imageUrl = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                            productCode = "910002339446",
                             cin = "5384295"
                         ),
-                        Product(
-                            title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
-                            subTitle = "Our Finest",
+                        Products.Product(
+                            name = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
+                            description = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                            skuId = "910001488114",
+                            imageUrl = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                            productCode = "910001488114",
                             cin = "4808682"
                         ),
                     ),
@@ -107,31 +107,31 @@ object Recipes {
                         "1/4 cup" to "Slivered almonds",
                     ),
                     products = listOf(
-                        Product(
-                            title = "Mango Medley Juice Blend",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Mango Medley Juice Blend",
+                            description = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Great Value Frozen Mango Chunks",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Great Value Frozen Mango Chunks",
+                            description = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
-                            subTitle = "Our Finest",
+                        Products.Product(
+                            name = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
+                            description = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                            skuId = "",
+                            imageUrl = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                            productCode = "",
                             cin = ""
                         ),
                     ),
@@ -179,31 +179,31 @@ object Recipes {
                         "3 cups" to "Vegetable broth",
                     ),
                     products = listOf(
-                        Product(
-                            title = "Mango Medley Juice Blend",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Mango Medley Juice Blend",
+                            description = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Great Value Frozen Mango Chunks",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Great Value Frozen Mango Chunks",
+                            description = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
-                            subTitle = "Our Finest",
+                        Products.Product(
+                            name = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
+                            description = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                            skuId = "",
+                            imageUrl = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                            productCode = "",
                             cin = ""
                         ),
                     ),
@@ -256,31 +256,31 @@ object Recipes {
                         "1 tbsp" to "Cheddar cheese",
                     ),
                     products = listOf(
-                        Product(
-                            title = "Mango Medley Juice Blend",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Mango Medley Juice Blend",
+                            description = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Great Value Frozen Mango Chunks",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Great Value Frozen Mango Chunks",
+                            description = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
-                            subTitle = "Our Finest",
+                        Products.Product(
+                            name = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
+                            description = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                            skuId = "",
+                            imageUrl = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                            productCode = "",
                             cin = ""
                         ),
                     ),
@@ -337,31 +337,31 @@ object Recipes {
                         "1/2 tbsp" to "Sesame seeds",
                     ),
                     products = listOf(
-                        Product(
-                            title = "Mango Medley Juice Blend",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Mango Medley Juice Blend",
+                            description = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Great Value Frozen Mango Chunks",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Great Value Frozen Mango Chunks",
+                            description = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
-                            subTitle = "Our Finest",
+                        Products.Product(
+                            name = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
+                            description = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                            skuId = "",
+                            imageUrl = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                            productCode = "",
                             cin = ""
                         ),
                     ),
@@ -416,31 +416,31 @@ object Recipes {
                         "2 sheets" to "Fat reduced puff pastry - thawed",
                     ),
                     products = listOf(
-                        Product(
-                            title = "Mango Medley Juice Blend",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Mango Medley Juice Blend",
+                            description = "Great Value",
                             price = "₹ 200",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/asr/00af5a4e-38b6-4baf-b425-846005ea766f.750ccada70d74492bfa89aed8c077d7c.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Great Value Frozen Mango Chunks",
-                            subTitle = "Great Value",
+                        Products.Product(
+                            name = "Great Value Frozen Mango Chunks",
+                            description = "Great Value",
                             price = "₹ 300",
                             quantity = "1",
-                            image = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
-                            skuId = "",
+                            imageUrl = "https://i5.walmartimages.com/seo/Great-Value-Mango-Chunks-Frozen-48-oz_4a2facc5-09f7-4088-b57d-74b80284cf1a.57d2d101362ccab0b299d3279e34fb4d.jpeg",
+                            productCode = "",
                             cin = ""
                         ),
-                        Product(
-                            title = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
-                            subTitle = "Our Finest",
+                        Products.Product(
+                            name = "Our Finest Natural Lemon Flavour Spring Water - Carbonated",
+                            description = "Our Finest",
                             price = "₹ 250",
                             quantity = "1",
-                            image = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
-                            skuId = "",
+                            imageUrl = "https://groceries.morrisons.com/productImages/112/112022011_0_640x640.jpg?identifier=46d0773a327149aaac705c9f65d10a4b",
+                            productCode = "",
                             cin = ""
                         ),
                     ),
