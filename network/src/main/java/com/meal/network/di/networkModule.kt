@@ -21,9 +21,7 @@ val networkModule = module {
     single<OkHttpClient> {
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(RequestTokenInterceptor())
-        if (BuildConfig.DEBUG) {
-            builder.addNetworkInterceptor(FlipperOkhttpInterceptor(get()))
-        }
+        builder.addNetworkInterceptor(FlipperOkhttpInterceptor(get()))
         builder.build()
     }
 
