@@ -1,22 +1,49 @@
 {
     "products": [
         {
-            "product_code": "910001512763",
-            "name": "Bananas",
-            "image_url": "https://ui.assets-asda.com:443/dm/5054070013779",
-            "price": "£1.00",
-            "quantity": "nil",
+            "product_code": "9791285",
+            "name": "ASDA Lemon Juice from Concentrate",
+            "image_url": "https://ui.assets-asda.com/dm/asdagroceries/5050854189487_T1?defaultImage=asdagroceries/noImage&resMode=sharp2&id=RV2Sx0&fmt=webp&dpr=off&fit=constrain,1&wid=864&hei=864",
+            "price": "£0.75",
+            "quantity": "250 ml",
             "description": "",
-            "cin": "4827494"
+            "cin": "1712696"
         },
         {
-            "product_code": "910002462553",
-            "name": "Nesquik Chocolate Flavored Milk Drink Powder",
-            "image_url": "https://ui.assets-asda.com:443/dm/",
-            "price": "£0.00",
-            "quantity": "nil",
-            "description": ".",
-            "cin": "5464597"
+            "product_code": "910000558862",
+            "name": "ASDA Mango Juice Drink",
+            "image_url": "https://ui.assets-asda.com/dm/asdagroceries/5052449344158_T1?defaultImage=asdagroceries/noImage&resMode=sharp2&id=k9qSt0&fmt=webp&dpr=off&fit=constrain,1&wid=288&hei=288",
+            "price": "£1.15",
+            "quantity": "1 lt",
+            "description": "",
+            "cin": "3875253"
+        },
+        {
+            "product_code": "910002339446",
+            "name": "ASDA Frozen for Freshness Mango Chunks",
+            "image_url": "https://ui.assets-asda.com/dm/asdagroceries/5054070692097_T1?defaultImage=asdagroceries/noImage&resMode=sharp2&id=LcERz1&fmt=webp&dpr=off&fit=constrain,1&wid=288&hei=288",
+            "price": "£2.45",
+            "quantity": "500 gm",
+            "description": "",
+            "cin": "5384295"
+        },
+        {
+            "product_code": "24662",
+            "name": "ASDA Loose Lemon",
+            "image_url": "https://ui.assets-asda.com/dm/asdagroceries/0000000006194_T1?defaultImage=asdagroceries/noImage&resMode=sharp2&id=UJ1St2&fmt=webp&dpr=off&fit=constrain,1&wid=188&hei=188",
+            "price": "£0.30",
+            "quantity": "1",
+            "description": "",
+            "cin": "618592"
+        },
+        {
+            "product_code": "910001488114",
+            "name": "ASDA No Added Sugar Lemon & Lime Flavoured Still Water Bottle",
+            "image_url": "https://ui.assets-asda.com/dm/asdagroceries/5054070442111_T1?defaultImage=asdagroceries/noImage&resMode=sharp2&id=KGISh2&fmt=webp&dpr=off&fit=constrain,1&wid=288&hei=288",
+            "price": "£0.65",
+            "quantity": "1 lt",
+            "description": "",
+            "cin": "4808682"
         }
     ]
 }
