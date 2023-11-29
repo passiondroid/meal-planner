@@ -6,7 +6,8 @@
             "image_url": "https://ui.assets-asda.com:443/dm/5054070013779",
             "price": "£1.00",
             "quantity": "nil",
-            "description": ""
+            "description": "",
+            "cin": "4827494"
         },
         {
             "product_code": "910002462553",
@@ -14,7 +15,8 @@
             "image_url": "https://ui.assets-asda.com:443/dm/",
             "price": "£0.00",
             "quantity": "nil",
-            "description": "."
+            "description": ".",
+            "cin": "5464597"
         }
     ]
 }
