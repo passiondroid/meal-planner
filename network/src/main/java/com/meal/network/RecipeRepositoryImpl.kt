@@ -158,7 +158,7 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
 
     private suspend fun getRecipeDetailFromNW(productRequestTO: ProductRequestTO) : List<Products.Product>? {
         try {
-            val productList = mealPlannerApi.getRecipeDetails()
+            val productList = mealPlannerApi.getRecipeDetails(productRequestTO)
             return productList.products
         } catch (e: Exception) {
             e.printStackTrace()

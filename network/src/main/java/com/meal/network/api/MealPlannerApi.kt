@@ -15,11 +15,11 @@ interface MealPlannerApi {
     @POST("functions/v1/get-home-page")
     suspend fun getHomePage(): HomePageResponse
 
-//    @POST("api/AsdaMealPlanner")
-//    suspend fun getRecipeDetails(@Body productRequestTO: ProductRequestTO) : List<ProductRespTO>
+    @POST("api/mp")
+    suspend fun getRecipeDetails(@Body productRequestTO: ProductRequestTO) : Products
 
-    @GET("meal-planner/products.json")
-    suspend fun getRecipeDetails() : Products
+//    @GET("meal-planner/products.json")
+//    suspend fun getRecipeDetails() : Products
 
     @GET("654b5e1f12a5d37659967d5a")
     suspend fun getRecipeDetailsProducts() : Response<FetchProducts>
