@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <queries>
+        <package android:name="com.asda.android" />
+    </queries>
     <application
         android:name=".MPApp"
         android:allowBackup="true"

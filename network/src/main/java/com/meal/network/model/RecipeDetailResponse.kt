@@ -28,25 +28,12 @@ data class RecipeDetailResponse(
         @SerializedName("quantities")
         val quantities: Map<String, String>,
         @SerializedName("product")
-        val products: List<Product>,
+        var products: List<Products.Product>? = emptyList(),
         @SerializedName("total_items")
         val totalItems: String,
         @SerializedName("estimated_total")
         val estimatedTotal: String,
-    ) {
-        data class Product(
-            @SerializedName("title")
-            val title: String,
-            @SerializedName("sub_title")
-            val subTitle: String,
-            @SerializedName("price")
-            val price: String,
-            @SerializedName("quantity")
-            val quantity: String,
-            @SerializedName("image")
-            val image: String,
-        )
-    }
+    )
 
     data class Instructions(
         @SerializedName("title")
@@ -59,3 +46,73 @@ data class RecipeDetailResponse(
         val steps: List<String>,
     )
 }
+//data class Product(
+//    @SerializedName("title")
+//    val title: String,
+//    @SerializedName("sub_title")
+//    val subTitle: String,
+//    @SerializedName("price")
+//    val price: String,
+//    @SerializedName("quantity")
+//    val quantity: String,
+//    @SerializedName("image")
+//    val image: String,
+//    @SerializedName("skuId")
+//    val skuId: String,
+//    @SerializedName("cin")
+//    val cin: String,
+//)
+
+data class FetchProducts(
+    @SerializedName("id")
+    val id:String,
+    @SerializedName("record")
+    val records: Records,
+    @SerializedName("metadata")
+    val metadata: Metadata
+
+)
+
+data class Metadata( @SerializedName("name")
+                     val name: String,
+                     @SerializedName("readCountRemaining")
+                     val readCountRemaining: Int,
+                     @SerializedName("timeToExpire")
+                    val timeToExpire:Double,
+                     @SerializedName("createdAt")
+                     val createdAt:String
+    )
+
+data class Records(  @SerializedName("products")
+                     val productRespToList:List<ProductRespTO>)
+data class ProductRespTO(
+    @SerializedName("product_code")
+    val productCode: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("image_url")
+    val imageUrl: String,
+    @SerializedName("price")
+    val price: String,
+    @SerializedName("quantity")
+    val quantity: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("cin")
+    val cin: String
+) {
+
+//    fun toProduct(): Product {
+//        return Product(
+//            title = this.name,
+//            subTitle = this.description,
+//            price = this.price,
+//            quantity = this.quantity,
+//            image = this.imageUrl,
+//            cin = this.cin,
+//            skuId = this.productCode
+//        )
+//    }
+}
+
+
