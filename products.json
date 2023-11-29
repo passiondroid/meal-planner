@@ -1,0 +1,20 @@
+{
+    "products": [
+        {
+            "product_code": "910001512763",
+            "name": "Bananas",
+            "image_url": "https://ui.assets-asda.com:443/dm/5054070013779",
+            "price": "£1.00",
+            "quantity": "nil",
+            "description": ""
+        },
+        {
+            "product_code": "910002462553",
+            "name": "Nesquik Chocolate Flavored Milk Drink Powder",
+            "image_url": "https://ui.assets-asda.com:443/dm/",
+            "price": "£0.00",
+            "quantity": "nil",
+            "description": "."
+        }
+    ]
+}
