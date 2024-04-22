@@ -1,11 +1,12 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
     namespace = "com.meal.network"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -43,6 +44,7 @@ dependencies {
     releaseApi("com.facebook.flipper:flipper-noop:0.212.0")
     debugApi("com.facebook.flipper:flipper-network-plugin:0.212.0")
     implementation("androidx.core:core-ktx:1.10.1")
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.2")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     testImplementation("junit:junit:4.13.2")
