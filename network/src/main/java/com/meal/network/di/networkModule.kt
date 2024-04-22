@@ -3,6 +3,7 @@ package com.meal.network.di
 import com.facebook.flipper.plugins.network.BuildConfig
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+import com.google.ai.client.generativeai.GenerativeModel
 import com.meal.core.constants.Constants.BASE_URL
 import com.meal.core.network.RetrofitServiceCreator
 import com.meal.network.HomeRepository
@@ -32,6 +33,14 @@ val networkModule = module {
         get()
     ) }
 
+    single {
+        GenerativeModel(
+            // For text-only input, use the gemini-pro model
+            modelName = "gemini-pro",
+            apiKey = com.meal.network.BuildConfig.apiKey
+        )
+    }
+
     single<MealPlannerApi?> {
         RetrofitServiceCreator().createService(
             get(),
@@ -39,6 +48,6 @@ val networkModule = module {
         )
     }
 
-    single<HomeRepository> { HomeRepositoryImpl(get()) }
+    single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
     single<RecipeRepository> { RecipeRepositoryImpl(get()) }
 }
