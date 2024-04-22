@@ -1,6 +1,10 @@
 package com.meal.planner.home
 
 import android.content.Intent
+import android.provider.CalendarContract.Colors
+import android.util.Log
+import android.view.Menu
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +16,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
+import androidx.compose.material3.MenuItemColors
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.meal.design.ui.CategoryCarousel
@@ -32,6 +51,7 @@ import com.meal.planner.recipe.RecipeCollectionActivity
 import com.meal.planner.viewmodel.HomePageState
 import com.meal.planner.viewmodel.HomeViewModel
 
+@ExperimentalMaterial3Api
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
     val homePageState  = viewModel.homePageLiveData.observeAsState()
@@ -55,6 +75,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
     }
 }
 
+@ExperimentalMaterial3Api
 @Composable
 fun HomeContent(categories: List<HomePageResponse.Category>) {
     var searchText by remember { mutableStateOf("") }
@@ -63,11 +84,13 @@ fun HomeContent(categories: List<HomePageResponse.Category>) {
         .fillMaxSize()
         .background(Color.White)
         .padding(start = 16.dp, top = 16.dp),) {
+        OverflowMenuTest()
         CategoryTitle(
             category = "Explore",
             style = TextStyle(color = Color.Black, fontSize = 24.sp)
         )
         Spacer(modifier = Modifier.height(16.dp))
+
         SearchBox(
             text = searchText,
             onTextChanged = { newText ->
@@ -96,11 +119,40 @@ fun HomeContent(categories: List<HomePageResponse.Category>) {
         }
     }
 }
+@ExperimentalMaterial3Api
+@Composable
+fun OverflowMenuTest() {
+    var showMenu by remember { mutableStateOf(false) }
 
+    TopAppBar(
+        modifier = Modifier.height(Dp(30.0f)),
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.White,
+            titleContentColor = Color.Black,
+        ),
+        title = { Text("") },
+        actions = {
+            IconButton(onClick = { showMenu = !showMenu }) {
+                Icon(Icons.Default.MoreVert,contentDescription = null)
+            }
+            DropdownMenu(
+                modifier = Modifier.background(color = Color.White),
+                expanded = showMenu,
+                onDismissRequest = { showMenu = false }
+            ) {
+                DropdownMenuItem(colors = MenuDefaults.itemColors(textColor = Color.Black), text = { Text("Spanish") }, onClick = { /*TODO*/ })
+                DropdownMenuItem(colors = MenuDefaults.itemColors(textColor = Color.Black),text = { Text("Afrikaan") }, onClick = { /*TODO*/ })
+                DropdownMenuItem(colors = MenuDefaults.itemColors(textColor = Color.Black),text = { Text("Vietnamese") }, onClick = { /*TODO*/ })
+            }
+        }
+    )
+}
 @Composable
 fun Loading() {
     Box(
-        modifier = Modifier.fillMaxSize().background(Color.White),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
