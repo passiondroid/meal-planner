@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,6 +28,7 @@ import com.meal.planner.navigation.NavigationGraph
 import com.meal.planner.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalMaterial3Api
 class HomeActivity : ComponentActivity() {
 
     private val homeViewModel: HomeViewModel by viewModel()

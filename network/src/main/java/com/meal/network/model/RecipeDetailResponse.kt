@@ -6,11 +6,11 @@ data class RecipeDetailResponse(
     @SerializedName("name")
     val name: String,
     @SerializedName("filters")
-    val filters: List<String>,
+    var filters: ArrayList<String>,
     @SerializedName("image")
     val image: String,
     @SerializedName("description")
-    val description: String,
+    var description: String,
     @SerializedName("serving")
     val serving: String,
     @SerializedName("prep")
@@ -26,7 +26,7 @@ data class RecipeDetailResponse(
 ) {
     data class Ingredients(
         @SerializedName("quantities")
-        val quantities: Map<String, String>,
+        var quantities: MutableMap<String, String>,
         @SerializedName("product")
         var products: List<Products.Product>? = emptyList(),
         @SerializedName("total_items")
@@ -43,7 +43,7 @@ data class RecipeDetailResponse(
         @SerializedName("cooking-time")
         val cookingTime: String,
         @SerializedName("steps")
-        val steps: List<String>,
+        val steps: ArrayList<String>,
     )
 }
 //data class Product(

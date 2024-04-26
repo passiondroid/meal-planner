@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.meal.core.constants.StringConstants
 import com.meal.design.R
 import com.meal.design.ui.Utils.HIGHLIGHT_COLOR
 import com.meal.design.ui.theme.montserratBold
@@ -157,7 +158,7 @@ fun MPPager(response: RecipeDetailResponse) {
     ) {
         MPTab(
             modifier = Modifier.weight(0.475f),
-            text = "Ingredients",
+            text = StringConstants.translationOfWords("Ingredients"),
             isSelected = isTab1Selected
         ) {
             isTab1Selected = true
@@ -169,7 +170,7 @@ fun MPPager(response: RecipeDetailResponse) {
         Spacer(modifier = Modifier.weight(0.05f))
         MPTab(
             modifier = Modifier.weight(0.475f),
-            text = "Instructions",
+            text = StringConstants.translationOfWords("Instructions"),
             isSelected = isTab2Selected
         ) {
             isTab1Selected = false
@@ -191,8 +192,9 @@ fun MPPager(response: RecipeDetailResponse) {
         ) {
             when (it.currentPage) {
                 0 -> {
-                    IngredientComposable(response,)
+                    IngredientComposable(response)
                 }
+
                 else -> {
                     InstructionsComposable(response)
                 }
@@ -210,11 +212,20 @@ fun InstructionsComposable(response: RecipeDetailResponse) {
         MPTextBold(title = response.instructions.title)
         Spacer(modifier = Modifier.height(8.dp))
         Row {
-            MPText(title = "Prep: ")
-            MPTextBold(title = response.instructions.prep, fontSize = 16.sp)
+            MPText(title = StringConstants.translationOfWords("Prep: "))
+            MPTextBold(
+                title = response.instructions.prep.plus(StringConstants.translationOfWords("mins")),
+                fontSize = 16.sp
+            )
             Spacer(modifier = Modifier.width(8.dp))
-            MPText(title = "Cook: ")
-            MPTextBold(title = response.instructions.cookingTime, fontSize = 16.sp)
+            MPText(title = StringConstants.translationOfWords("Cook: "))
+            MPTextBold(
+                title = response.instructions.cookingTime.plus(
+                    StringConstants.translationOfWords(
+                        "mins"
+                    )
+                ), fontSize = 16.sp
+            )
         }
         Spacer(modifier = Modifier.height(8.dp))
         response.instructions.steps.forEachIndexed { index, s ->
@@ -244,9 +255,16 @@ fun IngredientComposable(response: RecipeDetailResponse) {
         MPTextBold(title = "Quantities")
         Spacer(modifier = Modifier.height(16.dp))
         response.ingredients.quantities.toList().forEach {
+            val titleArray = it.first.split(" ")
+            var title = ""
+            title = if (titleArray.size > 1) {
+                title.plus(titleArray[0]).plus(StringConstants.translationOfWords(titleArray[1]))
+            } else {
+                titleArray[0]
+            }
             Row() {
                 MPTextBold(
-                    title = it.first, modifier = Modifier.weight(0.3f),
+                    title = title, modifier = Modifier.weight(0.3f),
                     style = TextStyle(color = Color.Black), fontSize = 16.sp
                 )
                 MPText(title = it.second, modifier = Modifier.weight(0.7f))
@@ -260,7 +278,8 @@ fun IngredientComposable(response: RecipeDetailResponse) {
         Spacer(modifier = Modifier.height(32.dp))
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
             MPText(
-                title = "Total Items", modifier = Modifier.weight(1f),
+                title = StringConstants.translationOfWords("Total Items"),
+                modifier = Modifier.weight(1f),
                 style = TextStyle(color = Color.Black, fontSize = 17.sp)
             )
             MPText(

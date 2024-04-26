@@ -1,17 +1,85 @@
 package com.meal.network
 
+import android.util.Log
+import com.google.ai.client.generativeai.GenerativeModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.meal.core.constants.Constants
 import com.meal.network.api.MealPlannerApi
-import com.meal.network.model.IngrediantsTO
 import com.meal.network.model.ProductRequestTO
 import com.meal.network.model.Products
 import com.meal.network.model.RecipeCollectionResponse
 import com.meal.network.model.RecipeDetailResponse
+import com.meal.network.model.TranslatedRespone
 import kotlinx.coroutines.delay
 
-class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeRepository {
+class RecipeRepositoryImpl(
+    private val mealPlannerApi: MealPlannerApi,
+    private val generativeModel: GenerativeModel
+) : RecipeRepository {
 
     override suspend fun getRecipeCollections(): RecipeCollectionResponse {
-        delay(500)
+        val response = getRecipeCollection()
+        try {
+            if (Constants.getAppLanguage() == "English (United States)") {
+                delay(500)
+                return response
+            } else {
+                val titleList = arrayListOf<String>()
+                response.filters.forEach {
+                    titleList.add(it.name)
+                }
+                val geminiResponse =
+                    generativeModel.generateContent(
+                        GenAIUtil.getPrompt(
+                            Constants.getAppLanguage(),
+                            titleList
+                        )
+                    )
+                val responseAI = geminiResponse.text
+                FileLogger.log("geminiResponse for filters $responseAI")
+                val typeToken = object : TypeToken<List<TranslatedRespone>>() {}.type
+                val translatedResponse =
+                    Gson().fromJson<List<TranslatedRespone>>(responseAI, typeToken)
+                response.filters.forEachIndexed { index, filter ->
+                    // response.filters[index].id = index
+                    response.filters[index].name =
+                        translatedResponse[index].translatedText ?: response.filters[index].name
+                }
+
+                val recipeItemList = arrayListOf<String>()
+                response.recipeItems.forEach {
+                    recipeItemList.add(it.name)
+                }
+                val geminiSubRecipeTitlesResp =
+                    generativeModel.generateContent(
+                        GenAIUtil.getPrompt(
+                            Constants.getAppLanguage(),
+                            recipeItemList
+                        )
+                    )
+                val subRecipeTitleRespAI = geminiSubRecipeTitlesResp.text
+                FileLogger.log("geminiResponse for recipe collection items $subRecipeTitleRespAI")
+                val subTitleTypeToken = object : TypeToken<List<TranslatedRespone>>() {}.type
+                val transaltedTitleResp =
+                    Gson().fromJson<List<TranslatedRespone>>(
+                        subRecipeTitleRespAI,
+                        subTitleTypeToken
+                    )
+                response.recipeItems.forEachIndexed { index, recipeItem ->
+                    response.recipeItems[index].name =
+                        transaltedTitleResp[index].translatedText
+                            ?: response.recipeItems[index].name
+                }
+                return response
+            }
+        }catch (ex:Exception){
+            Log.d("====", "getRecipeCollections: exception caught ${ex.cause}")
+        }
+        return response
+    }
+
+    private fun getRecipeCollection(): RecipeCollectionResponse {
         return RecipeCollectionResponse(
             filters = listOf(
                 RecipeCollectionResponse.Filter(1, "All Recipes"),
@@ -70,93 +138,156 @@ class RecipeRepositoryImpl(private val mealPlannerApi: MealPlannerApi) : RecipeR
                     id = 1,
                     name = "Sparkling Mango Lemonade Recipe",
                     image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPj6Dy4zKIY28GpzfGZq_JF3Q4scnjHeahaw&usqp=CAU",
-                    filterIds = listOf(1,4,7,10)
+                    filterIds = listOf(1, 4, 7, 10)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 2,
                     name = "Almond & Orange Salad Recipe",
                     image = "https://anoregoncottage.com/wp-content/uploads/2010/03/Orange-Almond-Salad_650.jpg",
-                    filterIds = listOf(1,2,3,5,11)
+                    filterIds = listOf(1, 2, 3, 5, 11)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 3,
                     name = "Apple & Butternut Squash Soup Recipe",
                     image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDFmmMHGinfsnhNTInRNIfLYz5KDFUL9uiLw&usqp=CAU",
-                    filterIds = listOf(1,5,7,6)
+                    filterIds = listOf(1, 5, 7, 6)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 4,
                     name = "Apple & Walnut Spinach Salad Recipe",
                     image = "https://riseshinecook.ca/wp-content/uploads/2020/10/Walnut-Spinach-Salad-2.jpg",
-                    filterIds = listOf(1,2,7,10)
+                    filterIds = listOf(1, 2, 7, 10)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 5,
                     name = "Asian Steak Salad Recipe",
                     image = "https://nomnompaleo.com/wp-content/uploads/2019/12/800-IG-Asian-Steak-Salad-Hero-03.jpg",
-                    filterIds = listOf(1,3,4,5)
+                    filterIds = listOf(1, 3, 4, 5)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 6,
                     name = "Asparagus and Leek Tart Recipe",
                     image = "https://www.lifewithoutmeat.com/wp-content/uploads/2020/04/leek-puff-pastry-web4.jpg",
-                    filterIds = listOf(1,3,4,5)
+                    filterIds = listOf(1, 3, 4, 5)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 7,
                     name = "Sparkling Mango Lemonade Recipe",
                     image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPj6Dy4zKIY28GpzfGZq_JF3Q4scnjHeahaw&usqp=CAU",
-                    filterIds = listOf(1,4,7,10)
+                    filterIds = listOf(1, 4, 7, 10)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 8,
                     name = "Almond & Orange Salad Recipe",
                     image = "https://anoregoncottage.com/wp-content/uploads/2010/03/Orange-Almond-Salad_650.jpg",
-                    filterIds = listOf(1,2,3,5,11)
+                    filterIds = listOf(1, 2, 3, 5, 11)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 9,
                     name = "Apple & Butternut Squash Soup Recipe",
                     image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDFmmMHGinfsnhNTInRNIfLYz5KDFUL9uiLw&usqp=CAU",
-                    filterIds = listOf(1,5,7,6)
+                    filterIds = listOf(1, 5, 7, 6)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 10,
                     name = "Apple & Walnut Spinach Salad Recipe",
                     image = "https://riseshinecook.ca/wp-content/uploads/2020/10/Walnut-Spinach-Salad-2.jpg",
-                    filterIds = listOf(1,2,7,10)
+                    filterIds = listOf(1, 2, 7, 10)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 11,
                     name = "Asian Steak Salad Recipe",
                     image = "https://nomnompaleo.com/wp-content/uploads/2019/12/800-IG-Asian-Steak-Salad-Hero-03.jpg",
-                    filterIds = listOf(1,3,4,5)
+                    filterIds = listOf(1, 3, 4, 5)
                 ),
                 RecipeCollectionResponse.RecipeItem(
                     id = 12,
                     name = "Asparagus and Leek Tart Recipe",
                     image = "https://www.lifewithoutmeat.com/wp-content/uploads/2020/04/leek-puff-pastry-web4.jpg",
-                    filterIds = listOf(1,3,4,5)
+                    filterIds = listOf(1, 3, 4, 5)
                 ),
             )
         )
     }
 
-    override suspend fun getRecipeDetails(id: Int, name: String, image: String): RecipeDetailResponse {
+    override suspend fun getRecipeDetails(
+        id: Int,
+        name: String,
+        image: String
+    ): RecipeDetailResponse {
         return recipeDetails(id, name, image)
     }
 
     private suspend fun recipeDetails(id: Int, name: String, image: String): RecipeDetailResponse {
         val recipe = Recipes.getRecipe(id, name, image)
-        val ingredients = recipe.ingredients.quantities.map {
-            IngrediantsTO(it.key,it.value)
-        }.toList()
-        val products = getRecipeDetailFromNW(ProductRequestTO(ingredients))
-        recipe.ingredients.products = products
+        try {
+
+            if (Constants.getAppLanguage() == "English (United States)") {
+                return recipe
+            }
+            val recipeDetailFilters = arrayListOf<String>()
+            recipe.filters.forEach {
+                recipeDetailFilters.add(it)
+            }
+            val translatedFilterResponse = getTranslatedResponse(recipeDetailFilters)
+            recipe.filters.forEachIndexed { idx, s ->
+                recipe.filters[idx] =
+                    translatedFilterResponse?.get(idx)?.translatedText ?: recipe.filters[idx]
+            }
+            recipeDetailFilters.clear()
+            recipeDetailFilters.add(recipe.description)
+            val translatedRecipeDescription = getTranslatedResponse(recipeDetailFilters)
+            recipe.description = translatedRecipeDescription?.get(0)?.translatedText
+                ?: recipe.description
+            recipeDetailFilters.clear()
+            val ingrediantsKeys = arrayListOf<String>()
+            recipe.ingredients.quantities.forEach {
+                recipeDetailFilters.add(it.value)
+                ingrediantsKeys.add(it.key)
+            }
+            val translatedIngredients = getTranslatedResponse(recipeDetailFilters)
+            ingrediantsKeys.forEachIndexed { index, s ->
+                val translatedValue = translatedIngredients?.get(index)?.translatedText
+                    ?: recipe.ingredients.quantities.getValue(s)
+                recipe.ingredients.quantities[s] = translatedValue
+            }
+            val translatedInstructions = getTranslatedResponse(ArrayList(recipe.instructions.steps))
+            Log.d(
+                "====",
+                "recipeDetails: translated inst size is = ${translatedInstructions?.size}"
+            )
+            Log.d(
+                "====",
+                "recipeDetails: translated inst list is = ${translatedInstructions.toString()}"
+            )
+            Log.d("====", "recipeDetails: orig inst size is = ${recipe.instructions.steps.size}")
+
+            recipe.instructions.steps.forEachIndexed { index, s ->
+                recipe.instructions.steps[index] =
+                    translatedInstructions?.get(index)?.translatedText
+                        ?: recipe.instructions.steps[index]
+            }
+        }catch (ex:Exception){
+            Log.d("====", "recipeDetails: exception occured in recipeDetails() ${ex.cause}")
+        }
         return recipe
     }
 
-    private suspend fun getRecipeDetailFromNW(productRequestTO: ProductRequestTO) : List<Products.Product>? {
+    private suspend fun getTranslatedResponse(textList: ArrayList<String>): List<TranslatedRespone>? {
+        val geminiResponse =
+            generativeModel.generateContent(
+                GenAIUtil.getPrompt(
+                    Constants.getAppLanguage(),
+                    textList
+                )
+            )
+        val responseAI = geminiResponse.text
+        FileLogger.log("translated gemini response $responseAI")
+        val typeToken = object : TypeToken<List<TranslatedRespone>>() {}.type
+        return Gson().fromJson(responseAI, typeToken)
+    }
+
+    private suspend fun getRecipeDetailFromNW(productRequestTO: ProductRequestTO): List<Products.Product>? {
         try {
             val productList = mealPlannerApi.getRecipeDetails(productRequestTO)
             return productList.products

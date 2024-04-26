@@ -10,7 +10,7 @@ object Recipes {
             RecipeDetailResponse(
                 name = name,
                 image = image,
-                filters = listOf(
+                filters = arrayListOf(
                     "5 ingredients or less",
                     "All recipes",
                     "Budget Friendly",
@@ -20,12 +20,12 @@ object Recipes {
                     "Snacks"
                 ),
                 description = "This refreshing drink is the perfect way to add a sweet, tropical spin to your drink pitcher.This easy lemonade...",
-                serving = "4 Servings",
-                prep = "5 mins",
-                cookingTime = "0 mins",
+                serving = "4 ",
+                prep = "5 ",
+                cookingTime = "0 ",
                 cost = 1,
                 ingredients = RecipeDetailResponse.Ingredients(
-                    quantities = mapOf(
+                    quantities = mutableMapOf(
                         "3 tbsp" to "Fresh lemon juice",
                         "1 cup" to "Mango medley juice blend",
                         "2 cups" to "Frozen mango pieces",
@@ -66,9 +66,9 @@ object Recipes {
                 ),
                 instructions = RecipeDetailResponse.Instructions(
                     title = "Step-by-step instructions",
-                    prep = "5 mins",
-                    cookingTime = "0 mins",
-                    steps = listOf(
+                    prep = "5 ",
+                    cookingTime = "0 ",
+                    steps = arrayListOf(
                         "Combine frozen mango juice in a blender. Blend until smooth. " +
                                 "Pour through a strainer into a pitcher. Discard pulp.",
                         "Stir in sparkling lemon beverage and lemon juice. Refrigerate at " +
@@ -81,7 +81,7 @@ object Recipes {
             RecipeDetailResponse(
                 name = name,
                 image = image,
-                filters = listOf(
+                filters = arrayListOf(
                     "5 ingredients or less",
                     "All recipes",
                     "Budget Friendly",
@@ -91,12 +91,12 @@ object Recipes {
                     "Snacks"
                 ),
                 description = "This is a quick and easy salad idea with a homemade vinaigrette drizzled over a mixture of lettuce, mandarin oranges, and almond slivers.",
-                serving = "4 Servings",
-                prep = "10 mins",
-                cookingTime = "10 mins",
+                serving = "4 ",
+                prep = "10 ",
+                cookingTime = "10 ",
                 cost = 1,
                 ingredients = RecipeDetailResponse.Ingredients(
-                    quantities = mapOf(
+                    quantities = mutableMapOf(
                         "3 tbsp" to "Canola oil",
                         "1/4 cup" to "Red wine vinegar",
                         "2 tbsp" to "White Sugar",
@@ -140,9 +140,9 @@ object Recipes {
                 ),
                 instructions = RecipeDetailResponse.Instructions(
                     title = "Step-by-step instructions",
-                    prep = "5 mins",
-                    cookingTime = "0 mins",
-                    steps = listOf(
+                    prep = "5 ",
+                    cookingTime = "0 ",
+                    steps = arrayListOf(
                         "Combine canola oil, vinegar, sugar, lemon juice, salt, and dry mustard in a jar with a lid. " +
                                 "Shake until ingredients combine into a dressing.",
                         "Toss lettuce, oranges, and almonds together in a large mixing bowl. " +
@@ -153,7 +153,7 @@ object Recipes {
             RecipeDetailResponse(
                 name = name,
                 image = image,
-                filters = listOf(
+                filters = arrayListOf(
                     "5 ingredients or less",
                     "All recipes",
                     "Budget Friendly",
@@ -163,12 +163,12 @@ object Recipes {
                     "Snacks"
                 ),
                 description = "This Butternut Squash and Apple Soup is creamy and bursting with fall flavor! Hard to believe it’s totally vegan and made with only 8 ingredients.",
-                serving = "4 Servings",
-                prep = "10 mins",
-                cookingTime = "25 mins",
+                serving = "4 ",
+                prep = "10 ",
+                cookingTime = "25 ",
                 cost = 2,
                 ingredients = RecipeDetailResponse.Ingredients(
-                    quantities = mapOf(
+                    quantities = mutableMapOf(
                         "1 tbsp" to "Olive oil",
                         "1" to "Yellow onion, diced",
                         "2-3" to "Cloves of garlic, minced",
@@ -212,9 +212,9 @@ object Recipes {
                 ),
                 instructions = RecipeDetailResponse.Instructions(
                     title = "Step-by-step instructions",
-                    prep = "10 mins",
-                    cookingTime = "25 mins",
-                    steps = listOf(
+                    prep = "10 ",
+                    cookingTime = "25 ",
+                    steps = arrayListOf(
                         "Bring a large soup pot to medium heat and add the oil (for oil-free add a splash of vegetable broth). " +
                                 "Add the onion and apple, then sauté until the onion is translucent, 3 to 5 minutes",
                         "Add in the garlic, rosemary, sage, and a pinch of salt. Sauté for an additional 1 to 2 minutes, " +
@@ -228,7 +228,7 @@ object Recipes {
             RecipeDetailResponse(
                 name = name,
                 image = image,
-                filters = listOf(
+                filters = arrayListOf(
                     "5 ingredients or less",
                     "All recipes",
                     "Budget Friendly",
@@ -238,12 +238,12 @@ object Recipes {
                     "Snacks"
                 ),
                 description = "Apple Walnut Spinach Salad is a fresh continental dish which is prepared with green apples, apples, maraschino cherries, dates, walnuts, sour cream and mayonnaise. This recipe is is ideal as a side dish or an appetizer for kitty parties, game nights and buffets. You can serve this cold salad during summers to your cold ones. Team this easy-to-make and delicious delicacy with toasted garlic bread.",
-                serving = "6 Servings",
-                prep = "10 mins",
-                cookingTime = "10 mins",
+                serving = "6 ",
+                prep = "10 ",
+                cookingTime = "10 ",
                 cost = 1,
                 ingredients = RecipeDetailResponse.Ingredients(
-                    quantities = mapOf(
+                    quantities = mutableMapOf(
                         "3" to "Green apple",
                         "2" to "Medium apple",
                         "30" to "Maraschino cherry",
@@ -289,9 +289,9 @@ object Recipes {
                 ),
                 instructions = RecipeDetailResponse.Instructions(
                     title = "Step-by-step instructions",
-                    prep = "10 mins",
-                    cookingTime = "10 mins",
-                    steps = listOf(
+                    prep = "10 ",
+                    cookingTime = "10 ",
+                    steps = arrayListOf(
                         "Firstly, take 15 Red Maraschino and 15 Green Maraschino cherries in a bowl and keep them aside. " +
                                 "Now, wash the apples, cranberries, spinach under running water.",
                         "Take a chopping board and chop the apples coarsely. Now, cut the cherries, cranberries into halves, " +
@@ -306,7 +306,7 @@ object Recipes {
             RecipeDetailResponse(
                 name = name,
                 image = image,
-                filters = listOf(
+                filters = arrayListOf(
                     "5 ingredients or less",
                     "All recipes",
                     "Budget Friendly",
@@ -316,12 +316,12 @@ object Recipes {
                     "Snacks"
                 ),
                 description = "Asian Steak Salad. A healthy vegetable packed steak salad with an Asian Sesame Lemon Dressing. Ready in 15 minutes and perfect for dinner or lunch.",
-                serving = "1 Serving",
-                prep = "15 mins",
-                cookingTime = "10 mins",
+                serving = "1 ",
+                prep = "15 ",
+                cookingTime = "10 ",
                 cost = 1,
                 ingredients = RecipeDetailResponse.Ingredients(
-                    quantities = mapOf(
+                    quantities = mutableMapOf(
                         "1/3" to "Cucumber sliced",
                         "1/2" to "Yellow bell pepper diced",
                         "1/2" to "Orange bell pepper diced",
@@ -370,9 +370,9 @@ object Recipes {
                 ),
                 instructions = RecipeDetailResponse.Instructions(
                     title = "Step-by-step instructions",
-                    prep = "10 mins",
-                    cookingTime = "10 mins",
-                    steps = listOf(
+                    prep = "10 ",
+                    cookingTime = "10 ",
+                    steps = arrayListOf(
                         "Prepare your vegetables as listed above and place them into your serving bowl.",
                         "In a jar, add your ingredients for your dressing, seal it and shake until the ingredients are mixed well.",
                         "In a hot pan, add oil. Season your steak with salt on each side. Add it to the hot frying pan. Fry on each side for " +
@@ -385,7 +385,7 @@ object Recipes {
             RecipeDetailResponse(
                 name = name,
                 image = image,
-                filters = listOf(
+                filters = arrayListOf(
                     "5 ingredients or less",
                     "All recipes",
                     "Budget Friendly",
@@ -395,12 +395,12 @@ object Recipes {
                     "Snacks"
                 ),
                 description = "Fresh peas, asparagus and leeks - this winning trio makes an easy weekend lunch. Herbs are everywhere in spring, try planting a small herb garden so you’ll always have some on hand.",
-                serving = "4 Servings",
-                prep = "10 mins",
-                cookingTime = "20 mins",
+                serving = "4 ",
+                prep = "10 ",
+                cookingTime = "20 ",
                 cost = 2,
                 ingredients = RecipeDetailResponse.Ingredients(
-                    quantities = mapOf(
+                    quantities = mutableMapOf(
                         "1" to "Leek - trimmed and white part thinly sliced",
                         "1" to "Clove of garlic - crushed",
                         "200 gm" to "Light Philadelphia spreadable cheese",
@@ -449,9 +449,9 @@ object Recipes {
                 ),
                 instructions = RecipeDetailResponse.Instructions(
                     title = "Step-by-step instructions",
-                    prep = "10 mins",
-                    cookingTime = "20 mins",
-                    steps = listOf(
+                    prep = "10 ",
+                    cookingTime = "20 ",
+                    steps = arrayListOf(
                         "Preheat oven to 180 C.",
                         "Line a rectangular fluted quiche dish with pastry cover with baking paper and fill with baking weights, " +
                                 "rice or beans and blind bake for 15 minutes. This partially cooks the pastry whilst the weight " +

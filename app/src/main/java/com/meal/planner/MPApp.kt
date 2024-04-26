@@ -7,6 +7,8 @@ import com.facebook.flipper.plugins.inspector.DescriptorMapping
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.soloader.SoLoader
+import com.meal.core.constants.Constants
+import com.meal.core.constants.StringConstants
 import com.meal.network.di.networkModule
 import com.meal.planner.di.appModule
 import org.koin.android.ext.android.inject
@@ -20,7 +22,9 @@ class MPApp: Application() {
     override fun onCreate() {
         super.onCreate()
         SoLoader.init(this, false)
-
+        StringConstants.createSpanishMap()
+        StringConstants.createArficanMap()
+        StringConstants.createVietnameseMap()
         startKoin{
             androidLogger()
             androidContext(this@MPApp)

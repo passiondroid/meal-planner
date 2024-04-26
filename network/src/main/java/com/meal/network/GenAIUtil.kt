@@ -9,6 +9,7 @@ object GenAIUtil {
 
     fun getPrompt(language: String, textList: List<String>): String {
         println("============= textList $textList")
+        println("============= lanugage in util $language")
         return """Given list of sample texts - 
             
             $textList 

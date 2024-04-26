@@ -11,16 +11,16 @@ data class RecipeCollectionResponse(
 ) {
     data class Filter(
         @SerializedName("id")
-        val id: Int,
+        var id: Int,
         @SerializedName("name")
-        val name: String,
+        var name: String,
     )
 
     data class RecipeItem(
         @SerializedName("id")
         val id: Int,
         @SerializedName("name")
-        val name: String,
+        var name: String,
         @SerializedName("image_url")
         val image: String,
         @SerializedName("filter_ids")

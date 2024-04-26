@@ -49,5 +49,5 @@ val networkModule = module {
     }
 
     single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
-    single<RecipeRepository> { RecipeRepositoryImpl(get()) }
+    single<RecipeRepository> { RecipeRepositoryImpl(get(),get()) }
 }

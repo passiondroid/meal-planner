@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ import com.meal.design.ui.MPTextBold
 import com.meal.planner.home.HomeScreen
 import com.meal.planner.viewmodel.HomeViewModel
 
+@ExperimentalMaterial3Api
 @Composable
 fun NavigationGraph(navController: NavHostController, homeViewModel: HomeViewModel) {
     NavHost(navController, startDestination = Destinations.HomeScreen.route) {

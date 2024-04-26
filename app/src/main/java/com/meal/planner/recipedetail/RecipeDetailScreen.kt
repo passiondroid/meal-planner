@@ -35,6 +35,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentActivity
+import com.meal.core.constants.StringConstants
 import com.meal.design.ui.AnnotatedMPText
 import com.meal.design.ui.MPCost
 import com.meal.design.ui.HorizontalFilterList
@@ -151,7 +152,7 @@ fun RecipeDetailContent(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            MPText(title = response.serving)
+                            MPText(title = response.serving.plus(StringConstants.translationOfWords("serving")))
                             WishlistIcon()
                         }
                         Spacer(modifier = Modifier.height(20.dp))
@@ -159,10 +160,10 @@ fun RecipeDetailContent(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            AnnotatedMPText(title = "Prep: ", boldTitle = response.prep)
-                            AnnotatedMPText(title = "Cook: ", boldTitle = response.cookingTime)
+                            AnnotatedMPText(title = StringConstants.translationOfWords("Prep: "), boldTitle = response.prep.plus(StringConstants.translationOfWords("mins")))
+                            AnnotatedMPText(title = StringConstants.translationOfWords("Cook: "), boldTitle = response.cookingTime.plus(StringConstants.translationOfWords("mins")))
                             Row {
-                                MPText(title = "Cost: ")
+                                MPText(title = StringConstants.translationOfWords("Cost: "))
                                 MPCost(response.cost)
                             }
                         }
@@ -177,11 +178,11 @@ fun RecipeDetailContent(
                 .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
             verticalAlignment = Alignment.Bottom
         ) {
-            MPButton("Add to Meal Plan", modifier = Modifier.weight(0.45f)) {
+            MPButton(StringConstants.translationOfWords("Add to Meal Plan"), modifier = Modifier.weight(0.45f)) {
 
             }
             Spacer(modifier = Modifier.weight(0.1f))
-            MPButton("Add to       Cart", modifier = Modifier.weight(0.45f), onClick = {
+            MPButton(StringConstants.translationOfWords("Add to Cart"), modifier = Modifier.weight(0.45f), onClick = {
                 var skuCinIds = ""
                 response.ingredients.products?.let {
                     for (productList in it) {

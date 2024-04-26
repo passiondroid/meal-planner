@@ -4,6 +4,7 @@ import FileLogger
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.meal.core.constants.Constants
 import com.meal.network.api.MealPlannerApi
 import com.meal.network.model.HomePageResponse
 import com.meal.network.model.TranslatedRespone
@@ -14,7 +15,7 @@ class HomeRepositoryImpl(private val mealPlannerApi: MealPlannerApi, private val
 
     override suspend fun getHomePage(): HomePageResponse {
         val response = getHomePageResponse()
-        if (Locale.getDefault().language == "en") {
+        if (Constants.getAppLanguage() == "English (United States)") {
             delay(500)
             return response
         } else {
@@ -30,14 +31,16 @@ class HomeRepositoryImpl(private val mealPlannerApi: MealPlannerApi, private val
                 try {
                     FileLogger.log("textList ${textList}")
                     FileLogger.log("language ${Locale.getDefault().language}")
-                    FileLogger.log("prompt ${GenAIUtil.getPrompt(Locale.getDefault().language, textList)}")
+                    FileLogger.log("language ${Locale.getDefault().displayName}")
+                   // FileLogger.log("prompt ${GenAIUtil.getPrompt(Locale.getDefault().language, textList)}")
                     val geminiResponse = generativeModel
-                        .generateContent(GenAIUtil.getPrompt(Locale.getDefault().displayName, textList))
+                        .generateContent(GenAIUtil.getPrompt(Constants.getAppLanguage(), textList))
                     val responseAI  = geminiResponse.text
                     FileLogger.log("geminiResponse $responseAI")
                     val typeToken = object : TypeToken<List<TranslatedRespone>>() {}.type
                     val translatedRespone = Gson().fromJson<List<TranslatedRespone>>(responseAI, typeToken)
                     var translatedIndex = 0
+
                     response.categories.forEachIndexed { index, it ->
                         FileLogger.log("translatedIndex $translatedIndex")
                         FileLogger.log("translatedRespone ${translatedRespone[translatedIndex]}")
